@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
+#include "snake_background.h"
 
 // Define o tamanho da tela do jogo
 #define GRID_SIZE 20
@@ -34,6 +35,45 @@ int comidaY = 10;
 int gameOver = 0;
 int score = 0;
 
+// careegar testura
+GLuint texturaFundo;
+
+void carregarTexturaDoArray() {
+    glGenTextures(1, &texturaFundo);
+    glBindTexture(GL_TEXTURE_2D, texturaFundo);
+
+    glTexImage2D(
+        GL_TEXTURE_2D,
+        0,
+        GL_RGB,
+        BG_WIDTH,
+        BG_HEIGHT,
+        0,
+        GL_RGB,
+        GL_UNSIGNED_BYTE,
+        BG_PIXELS
+    );
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+// desenhar imagem 
+void desenharFundo() {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturaFundo);
+
+    glColor3f(1,1,1);
+
+    glBegin(GL_QUADS);
+        glTexCoord2f(0,1); glVertex2f(-1,-1);
+        glTexCoord2f(1,1); glVertex2f( 1,-1);
+        glTexCoord2f(1,0); glVertex2f( 1, 1);
+        glTexCoord2f(0,0); glVertex2f(-1, 1);
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+}
 
 // Função para gerar uma nova posição para a comida
 void gerarComida() {
@@ -88,6 +128,11 @@ void desenharQuadrado(int x, int y, float r, float g, float b) {
 void display() {
     // Limpa a tela
     glClear(GL_COLOR_BUFFER_BIT);
+
+
+    // desenha fundo
+    desenharFundo();
+
 
     // Desenha comida
     desenharComidaBolinha(comidaX, comidaY);
@@ -179,6 +224,8 @@ void initSnake() {
 
 // Função principal
 int main(int argc, char** argv) {
+    
+
     // Inicializa a semente para geração de números aleatórios
     srand(time(NULL));
 
@@ -191,8 +238,11 @@ int main(int argc, char** argv) {
     // Configura a posição da janela
     glutCreateWindow("Jogo da Cobrinha");
 
+    // carrega fundo
+    carregarTexturaDoArray();
+
     // Configura a cor de fundo da janela (preto)
-    initSnake();
+    //initSnake();
 
     // Registra as funções de callback
     glutDisplayFunc(display);
