@@ -35,7 +35,7 @@ int comidaY = 10;
 int gameOver = 0;
 int score = 0;
 
-// careegar testura
+// careegar testura de fundo (Imagem)
 GLuint texturaFundo;
 
 void carregarTexturaDoArray() {
@@ -81,23 +81,29 @@ void gerarComida() {
     comidaY = rand() % GRID_SIZE;
 }
 
-void desenharComidaBolinha(int x, int y) {
-    float tamCelula = 2.0f / GRID_SIZE;
+void desenharMaca(int x, int y) {
+
+    float tam = 2.0f / GRID_SIZE;
 
     // Centro da célula
-    float centroX = -1.0f + x * tamCelula + tamCelula / 2.0f;
-    float centroY = -1.0f + y * tamCelula + tamCelula / 2.0f;
+    float centroX = -1.0f + x * tam + tam / 2;
+    float centroY = -1.0f + y * tam + tam / 2;
 
-    // Raio da bolinha
-    float raio = tamCelula * 0.25f;
+    // =========================
+    // CORPO DA MAÇÃ
+    // =========================
 
-    glColor3f(1, 1, 1);
+    float raio = tam * 0.30f;
+
+    glColor3f(1.0f, 0.0f, 0.0f);
 
     glBegin(GL_TRIANGLE_FAN);
+
         glVertex2f(centroX, centroY);
 
-        for(int i = 0; i <= 30; i++) {
-            float ang = 2.0f * 3.14159f * i / 30;
+        for(int i = 0; i <= 40; i++) {
+
+            float ang = 2.0f * 3.14159f * i / 40;
 
             glVertex2f(
                 centroX + cos(ang) * raio,
@@ -106,23 +112,285 @@ void desenharComidaBolinha(int x, int y) {
         }
 
     glEnd();
+
+
+
+    // =========================
+    // CABO DA MAÇÃ
+    // =========================
+
+    glColor3f(0.4f, 0.2f, 0.0f);
+
+    glBegin(GL_QUADS);
+
+        glVertex2f(centroX - 0.005f, centroY + raio * 0.8f);
+        glVertex2f(centroX + 0.005f, centroY + raio * 0.8f);
+
+        glVertex2f(centroX + 0.005f, centroY + raio * 1.3f);
+        glVertex2f(centroX - 0.005f, centroY + raio * 1.3f);
+
+    glEnd();
+}
+ // DESENAHR A COBRA:
+ // função para desenha a cabeça da cobra como um círculo
+
+void desenharCabeca(int x, int y) {
+
+    // =========================================
+    // TAMANHO DA CÉLULA E CENTRO DA CABEÇA
+    // =========================================
+
+    float tamanhoCelula = 2.0f / GRID_SIZE;
+
+    float centroX = -1.0f + x * tamanhoCelula + tamanhoCelula / 2.0f;
+    float centroY = -1.0f + y * tamanhoCelula + tamanhoCelula / 2.0f;
+
+    float raioCabeca = tamanhoCelula * 0.55f;
+
+    // =========================================
+    // DESENHAR CABEÇA
+    // =========================================
+
+    glColor3f(0.0f, 0.8f, 0.0f);
+
+    glBegin(GL_TRIANGLE_FAN);
+
+        glVertex2f(centroX, centroY);
+
+        for(int i = 0; i <= 40; i++) {
+
+            float angulo = 2.0f * 3.14159f * i / 40;
+
+            glVertex2f(
+                centroX + cos(angulo) * raioCabeca,
+                centroY + sin(angulo) * raioCabeca
+            );
+        }
+
+    glEnd();
+
+    // =========================================
+    // DESENHAR LÍNGUA
+    // =========================================
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+
+    glBegin(GL_TRIANGLES);
+
+        // DIREITA
+        if(dirX == 1) {
+
+            glVertex2f(centroX + raioCabeca, centroY);
+
+            glVertex2f(
+                centroX + raioCabeca + 0.03f,
+                centroY + 0.01f
+            );
+
+            glVertex2f(
+                centroX + raioCabeca + 0.03f,
+                centroY - 0.01f
+            );
+        }
+
+        // ESQUERDA
+        else if(dirX == -1) {
+
+            glVertex2f(centroX - raioCabeca, centroY);
+
+            glVertex2f(
+                centroX - raioCabeca - 0.03f,
+                centroY + 0.01f
+            );
+
+            glVertex2f(
+                centroX - raioCabeca - 0.03f,
+                centroY - 0.01f
+            );
+        }
+
+        // CIMA
+        else if(dirY == 1) {
+
+            glVertex2f(centroX, centroY + raioCabeca);
+
+            glVertex2f(
+                centroX - 0.01f,
+                centroY + raioCabeca + 0.03f
+            );
+
+            glVertex2f(
+                centroX + 0.01f,
+                centroY + raioCabeca + 0.03f
+            );
+        }
+
+        // BAIXO
+        else if(dirY == -1) {
+
+            glVertex2f(centroX, centroY - raioCabeca);
+
+            glVertex2f(
+                centroX - 0.01f,
+                centroY - raioCabeca - 0.03f
+            );
+
+            glVertex2f(
+                centroX + 0.01f,
+                centroY - raioCabeca - 0.03f
+            );
+        }
+
+    glEnd();
+
+    // =========================================
+    // POSIÇÃO DOS OLHOS
+    // =========================================
+
+    float olho1X = 0.0f;
+    float olho1Y = 0.0f;
+
+    float olho2X = 0.0f;
+    float olho2Y = 0.0f;
+
+    // DIREITA
+    if(dirX == 1) {
+
+        olho1X = 0.015f;
+        olho1Y = 0.015f;
+
+        olho2X = 0.015f;
+        olho2Y = -0.015f;
+    }
+
+    // ESQUERDA
+    else if(dirX == -1) {
+
+        olho1X = -0.015f;
+        olho1Y = 0.015f;
+
+        olho2X = -0.015f;
+        olho2Y = -0.015f;
+    }
+
+    // CIMA
+    else if(dirY == 1) {
+
+        olho1X = -0.015f;
+        olho1Y = 0.015f;
+
+        olho2X = 0.015f;
+        olho2Y = 0.015f;
+    }
+
+    // BAIXO
+    else if(dirY == -1) {
+
+        olho1X = -0.015f;
+        olho1Y = -0.015f;
+
+        olho2X = 0.015f;
+        olho2Y = -0.015f;
+    }
+
+    // =========================================
+    // DESENHAR OLHOS
+    // =========================================
+
+    for(int olho = 0; olho < 2; olho++) {
+
+        float offsetX = (olho == 0) ? olho1X : olho2X;
+        float offsetY = (olho == 0) ? olho1Y : olho2Y;
+
+        // =====================
+        // BRANCO DO OLHO
+        // =====================
+
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        glBegin(GL_TRIANGLE_FAN);
+
+            glVertex2f(
+                centroX + offsetX,
+                centroY + offsetY
+            );
+
+            for(int i = 0; i <= 20; i++) {
+
+                float angulo = 2.0f * 3.14159f * i / 20;
+
+                glVertex2f(
+                    centroX + offsetX + cos(angulo) * 0.008f,
+                    centroY + offsetY + sin(angulo) * 0.008f
+                );
+            }
+
+        glEnd();
+
+        // =====================
+        // PUPILA
+        // =====================
+
+        glColor3f(0.0f, 0.0f, 0.0f);
+
+        glBegin(GL_TRIANGLE_FAN);
+
+            glVertex2f(
+                centroX + offsetX,
+                centroY + offsetY
+            );
+
+            for(int i = 0; i <= 20; i++) {
+
+                float angulo = 2.0f * 3.14159f * i / 20;
+
+                glVertex2f(
+                    centroX + offsetX + cos(angulo) * 0.004f,
+                    centroY + offsetY + sin(angulo) * 0.004f
+                );
+            }
+
+        glEnd();
+    }
 }
 
-void desenharQuadrado(int x, int y, float r, float g, float b) {
+// função para desenhar o corpo da cobra como um quadrado
+void desenharCorpo(int x, int y) {
+
     float tam = 2.0f / GRID_SIZE;
 
     float px = -1.0f + x * tam;
     float py = -1.0f + y * tam;
 
-    glColor3f(r, g, b);
+    glColor3f(0.0f, 1.0f, 0.0f);
 
     glBegin(GL_QUADS);
+
         glVertex2f(px, py);
         glVertex2f(px + tam, py);
         glVertex2f(px + tam, py + tam);
         glVertex2f(px, py + tam);
+
     glEnd();
 }
+
+
+// função para desenhar texto
+void desenharTexto(float x, float y, char *string) {
+
+    // Define cor do texto
+    glColor3f(0, 0, 0);
+
+    // Posiciona texto na tela
+    glRasterPos2f(x, y);
+
+    // Desenha caractere por caractere
+    while(*string) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *string);
+        string++;
+    }
+}
+
 
 // Função de renderização do jogo
 void display() {
@@ -132,22 +400,39 @@ void display() {
 
     // desenha fundo
     desenharFundo();
-
+    
 
     // Desenha comida
-    desenharComidaBolinha(comidaX, comidaY);
+    desenharMaca(comidaX, comidaY);
 
     // Desenha cobra
     for(int i = 0; i < tamanho; i++) {
-    if(i == 0)
-        desenharQuadrado(cobra[i].x, cobra[i].y, 1, 1, 0); // cabeça
-    else
-        desenharQuadrado(cobra[i].x, cobra[i].y, 0, 1, 0);   // corpo
+
+    // Cabeça
+    if(i == 0) {
+        desenharCabeca(cobra[i].x, cobra[i].y);
     }
 
-    // atualiza a tela
+    // Corpo
+    else {
+        desenharCorpo(cobra[i].x, cobra[i].y);
+    }
+}
+
+    // TEXTO DA PONTUAÇÃO
+
+    glColor3f(1, 1, 1);
+
+    
+    char texto[50];
+
+    sprintf(texto, "Pontuacao: %d", score);
+
+    desenharTexto(-0.95f, 0.92f, texto);
+
     glFlush();
 }
+
 
 // Função para atualizar o jogo (executada a cada intervalo de tempo)
 void atualizar(int value) {
