@@ -89,7 +89,7 @@ void desenharFundo() {
 
     glBindTexture(GL_TEXTURE_2D, texturaFundo);
 
-    glColor3f(1,1,1);
+    glColor3f(0,1,0);
 
     glBegin(GL_QUADS);
 
