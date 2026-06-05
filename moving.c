@@ -414,7 +414,7 @@ void desenharTelaGameOver() {
     desenharTexto(
         -0.18f,
         0.05f,
-        "MELHORES PONTUACOES"
+        "RANKING"
     );
 
     char texto[64];
@@ -464,7 +464,7 @@ void desenharTelaGameOver() {
     // BOTÃO REINICIAR
     // =====================================
 
-    glColor3f(0.0f, 1.0f, 0.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     desenharTexto(
         -0.24f,
@@ -476,7 +476,7 @@ void desenharTelaGameOver() {
     // BOTÃO SAIR
     // =====================================
 
-    glColor3f(1.0f, 0.3f, 0.3f);
+    glColor3f(0.8f, 0.1f, 0.1f);
 
     desenharTexto(
         -0.10f,
