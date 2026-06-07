@@ -10,8 +10,8 @@
 // TAMANHO DA JANELA
 // =====================================
 
-int largura = 800;
-int altura = 600;
+int largura = 700;
+int altura = 700;
 
 int hover = 0;
 
