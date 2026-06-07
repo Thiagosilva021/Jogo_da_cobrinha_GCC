@@ -1,7 +1,9 @@
 Snake Game em C com OpenGL (FreeGLUT)
+
 Um jogo clássico da cobrinha desenvolvido em C utilizando OpenGL e FreeGLUT, com interface gráfica personalizada, sistema de pontuação, ranking persistente (Top 5 recordes), tela de Game Over estilizada e renderização de elementos gráficos desenhados manualmente.
 
 Sobre o Projeto
+
 Este projeto foi desenvolvido com o objetivo de praticar:
 - Programação em C
 - Computação Gráfica com OpenGL
