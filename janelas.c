@@ -1,4 +1,4 @@
-////gcc janelas.c -Iinclude -Llib/x64 -lfreeglut -lopengl32 -lglu32 -o janelas.exe
+//gcc janelas.c -Iinclude -Llib/x64 -lfreeglut -lopengl32 -lglu32 -o janelas.exe
 
 #include <GL/glut.h>
 #include <stdio.h>
@@ -113,13 +113,11 @@ void desenharFundo() {
 // =====================================
 // DESENHAR BOTÃO ESTILO PIXEL
 // =====================================
-
 void desenharBotao(Botao b, int ativo) {
 
     // =====================
     // SOMBRA
     // =====================
-
     glColor3f(0.12, 0.20, 0.32);
 
     glBegin(GL_QUADS);
@@ -208,7 +206,6 @@ void desenharBotao(Botao b, int ativo) {
 // =====================================
 // DISPLAY
 // =====================================
-
 void display() {
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -223,8 +220,6 @@ void display() {
 }
 
 // MOVIMENTO DO MOUSE
-
-
 void movimento(int x, int y) {
 
     float mx = (float)x / largura * 2 - 1;
@@ -250,8 +245,6 @@ void movimento(int x, int y) {
 
 
 // CLIQUES
-
-
 void mouse(int botao, int estado, int x, int y) {
 
     if (botao == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
@@ -269,8 +262,6 @@ void mouse(int botao, int estado, int x, int y) {
 
 
 // INIT
-
-
 void init() {
 
     glClearColor(0.62, 0.86, 0.28, 1);
@@ -284,8 +275,6 @@ void init() {
 
 
 // MAIN
-
-
 int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
