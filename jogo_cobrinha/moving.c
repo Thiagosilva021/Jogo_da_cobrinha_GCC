@@ -305,7 +305,7 @@ void desenharTelaGameOver() {
     desenharTexto(
         -0.18f,
         0.65f,
-        "SE FUDEU"
+        "GAME OVER"
     );
 
     // CAIXA DA PONTUAÇÃO
