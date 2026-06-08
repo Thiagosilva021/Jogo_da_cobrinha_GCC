@@ -18,8 +18,8 @@ O jogo segue a mecânica clássica do Snake Game:
 - A cobra deve comer maçãs para crescer.
 - Cada maçã aumenta a pontuação.
 - O jogo termina quando a cobra:
-- Bate na parede;
-- Colide com o próprio corpo.
+  - Bate na parede;
+  - Colide com o próprio corpo.
 
 Ao final da partida é exibida uma tela de Game Over contendo:
 - Pontuação final;
